@@ -59,6 +59,7 @@ async function App() {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  // ================================ DIDKit test ================================
   const [vc, setVc] = useState<any>(null);
 
   const key = DIDKit.generateEd25519Key();
@@ -93,6 +94,7 @@ async function App() {
       key,
     ),
   );
+  // ================================ End of DIDKit test ================================
 
   return (
     <SafeAreaView style={backgroundStyle}>
