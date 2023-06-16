@@ -5,8 +5,8 @@
  * @format
  */
 
-import type { PropsWithChildren } from 'react';
-import React, { useState } from 'react';
+import type {PropsWithChildren} from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -17,19 +17,16 @@ import {
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  Header
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
 
 import DIDKit from '@spruceid/didkit-wasm-node';
-import { v4 } from 'uuid';
+import {v4} from 'uuid';
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function Section({ children, title }: SectionProps): JSX.Element {
+function Section({children, title}: SectionProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -70,29 +67,32 @@ async function App() {
   const verificationMethod = await DIDKit.keyToVerificationMethod('key', key);
 
   const unsignedCredential = {
-    "@context": [
-      "https://www.w3.org/2018/credentials/v1",
-      "https://www.w3.org/2018/credentials/examples/v1"
+    '@context': [
+      'https://www.w3.org/2018/credentials/v1',
+      'https://www.w3.org/2018/credentials/examples/v1',
     ],
-    "id": v4(),
-    "type": [
-      "VerifiableCredential",
-      "IssuerCredential"
-    ],
-    "credentialSubject": {
-      "name": "Winner Pranata",
-      "title": "King of Scotland"
+    id: v4(),
+    type: ['VerifiableCredential', 'IssuerCredential'],
+    credentialSubject: {
+      name: 'Winner Pranata',
+      title: 'King of Scotland',
     },
-    "issuer": issuerId,
-    "issuanceDate": new Date().toISOString()
-  }
+    issuer: issuerId,
+    issuanceDate: new Date().toISOString(),
+  };
 
   const credentialOptions = {
-    "proofPurpose": "assertionMethod",
-    "verificationMethod": verificationMethod
-  }
+    proofPurpose: 'assertionMethod',
+    verificationMethod: verificationMethod,
+  };
 
-  setVc(await DIDKit.issueCredential(JSON.stringify(unsignedCredential), JSON.stringify(credentialOptions), key))
+  setVc(
+    await DIDKit.issueCredential(
+      JSON.stringify(unsignedCredential),
+      JSON.stringify(credentialOptions),
+      key,
+    ),
+  );
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -108,9 +108,7 @@ async function App() {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="VC Demo">
-            {vc}
-          </Section>
+          <Section title="VC Demo">{vc}</Section>
         </View>
       </ScrollView>
     </SafeAreaView>
